@@ -30,7 +30,7 @@ axes:
     description: "Whether this task warrants the sustained-development workflow"
     values: [manual, auto]
     detect:
-      auto: "User describes a complex feature, multi-file change, refactoring, data pipeline, or multi-step implementation; mentions 'multiple files', 'several steps', 'do it carefully', '仔细点', or describes work involving 4+ files or 2+ subtasks"
+      auto: "User describes a complex feature, multi-file change, refactoring, data pipeline, or multi-step implementation; mentions 'multiple files', 'several steps', 'do it carefully', '仔细点'; describes work involving 4+ files or 2+ subtasks; OR user just approved a plan (via EnterPlanMode) and says 'start implementing', 'execute', 'let's build', 'let's do it', 'begin work', '开始实施', '按计划做', '动手吧', '可以做了', '开始做'"
       manual: "User says '/sustained' or '长任务' (explicit invocation)"
 
   taskScope:
