@@ -1,0 +1,46 @@
+# Sustained Development — declarative loading manifest
+# Attention retention workflow for long, multi-step development tasks.
+# Cross-platform: Linux, macOS, Windows (Git Bash / WSL).
+
+name: sustained-development
+version: "1.0"
+description: Attention retention workflow for long development tasks — 6-layer defense against context decay, task boundary drift, and verification slack.
+
+# ── Session Variables ──────────────────────────────
+session_variables:
+  smtp_server:
+    description: "SMTP server hostname for optional completion notification. If unset, email step is skipped."
+    default: null
+  smtp_port:
+    description: "SMTP server port."
+    default: "587"
+  smtp_user:
+    description: "SMTP username for authentication."
+    default: null
+  smtp_pass:
+    description: "SMTP password or app-specific token."
+    default: null
+  notify_email:
+    description: "Recipient email address for completion notification."
+    default: null
+
+# ── Always Load ─────────────────────────────────────
+always_load:
+  - SKILL.md
+
+# ── On Demand: Sub-agent Prompts ──────────────────
+prompts:
+  implementer:
+    file: implementer-prompt.md
+    description: Sub-agent prompt template with forced escalation return format
+  sentry:
+    file: sentry-prompt.md
+    description: Audit agent prompt with 4 review dimensions
+
+# ── References ─────────────────────────────────────
+references:
+  test-scenario:
+    file: test-scenario.md
+    condition:
+      stage: [test]
+    on_demand: true
