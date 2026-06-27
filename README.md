@@ -17,10 +17,10 @@ A [Claude Code](https://claude.ai/code) skill for maintaining focus and consiste
 
 | Use | Don't Use |
 |-----|-----------|
-| Tasks involving 4+ file changes or 2+ sub-tasks | Single-file edits |
+| Tasks involving 4+ file changes or 2+ sub-tasks (auto-detected) | Single-file edits |
 | Multi-step analysis with verification | Pure exploration ("no finish line") |
 | Bug fixes where root cause is unknown | Quick fixes the user explicitly requested |
-| User says "/sustained" or "long task" | |
+| Explicit trigger: "/sustained" or "long task" | |
 
 ## Quick Start
 

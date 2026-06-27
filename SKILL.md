@@ -1,6 +1,6 @@
 ---
 name: sustained-development
-description: Use when starting a long development task where Agent attention drift is a concern - multi-file code changes, multi-step analysis, or any task spanning 4+ sub-steps where context decay, verification slack, or task boundary drift could cause issues. Also use when the user says '/sustained' or '长任务'. Does NOT auto-trigger; manual invocation only.
+description: Auto-triggers on long development tasks — multi-file changes, multi-step analysis, or tasks spanning 4+ sub-steps where context decay, verification slack, or task boundary drift could cause issues. Also triggers on '/sustained' or '长任务'.
 ---
 
 # Sustained Development — Attention Retention Workflow
@@ -49,9 +49,13 @@ This workflow has six layers of defense:
 
 ## When to Use
 
-### Trigger (manual)
+### Trigger (auto-detect + manual)
 
-User says **"/sustained"** or **"start long task"** to activate the full workflow. If the user says "quick change" or describes a simple modification, skip this flow.
+**Auto-detected** when the user describes a complex task — multi-file changes, multi-step implementation, refactoring, data pipelines, or anything spanning 4+ files or 2+ subtasks.
+
+**Manual trigger** via **"/sustained"** or **"开始长任务"**.
+
+If the user says "quick change" or describes a simple modification, skip this flow.
 
 If unsure whether this flow is appropriate, suggest it, but **the user decides**.
 
@@ -599,7 +603,7 @@ done
 
 ```
 === SETUP ===
-1. User triggers via "/sustained" or describing a long task
+1. User triggers via auto-detection (complex task description), "/sustained", or "开始长任务"
 2. Coordinator confirms plan is ready
    - Plan source: EnterPlanMode, writing-plans, brainstorming, or user verbal description
    - If no plan yet → go through design phase first

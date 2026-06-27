@@ -24,6 +24,23 @@ session_variables:
     description: "Recipient email address for completion notification."
     default: null
 
+# ── Axes (Auto-Trigger Detection) ──────────────────
+axes:
+  trigger:
+    description: "Whether this task warrants the sustained-development workflow"
+    values: [manual, auto]
+    detect:
+      auto: "User describes a complex feature, multi-file change, refactoring, data pipeline, or multi-step implementation; mentions 'multiple files', 'several steps', 'do it carefully', '仔细点', or describes work involving 4+ files or 2+ subtasks"
+      manual: "User says '/sustained' or '长任务' (explicit invocation)"
+
+  taskScope:
+    description: "Estimated scope for checkpoint interval calculation"
+    values: [small, medium, large]
+    detect:
+      small: "Task is described as 'quick change', 'fix', 'tweak', or involves 1-2 files"
+      medium: "Task involves 3-8 files or multiple steps but within a single component"
+      large: "Task involves 9+ files, cross-component changes, new feature from scratch, or pipeline/data architecture work"
+
 # ── Always Load ─────────────────────────────────────
 always_load:
   - SKILL.md
