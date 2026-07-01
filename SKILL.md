@@ -1,6 +1,6 @@
 ---
 name: sustained-development
-description: Auto-triggers on long development tasks — multi-file changes, multi-step analysis, or tasks spanning 4+ sub-steps where context decay, verification slack, or task boundary drift could cause issues. Also triggers on '/sustained' or '长任务'.
+description: 背景被动技能 — 在检测到复杂任务时自动触发（≥4文件或≥2子任务）。也支持 '/sustained' 或 '长任务' 手动触发。自动触发时告知用户后直接进入SETUP。
 ---
 
 # Sustained Development — Attention Retention Workflow
@@ -49,28 +49,32 @@ This workflow has six layers of defense:
 
 ## When to Use
 
-### Trigger (auto-detect + manual)
+### Trigger — 大任务自动触发模式（被动技能）
 
-**Auto-detected** when the user describes a complex task — multi-file changes, multi-step implementation, refactoring, data pipelines, or anything spanning 4+ files or 2+ subtasks.
+**本技能是背景被动技能，CLAUDE.md 已配置为每个用户请求时自动检测复杂度。**
 
-**Manual trigger** via **"/sustained"** or **"开始长任务"**.
+**自动触发条件（满足任一即触发，无需用户确认）：**
+- 任务涉及 ≥ 4 个文件的修改
+- 任务包含 ≥ 2 个独立的子任务/步骤
+- 用户使用多阶段描述（"先做A再做B然后C"）
+- 用户使用审慎型措辞（"仔细做"、"一步步"、"这个比较复杂"）
 
-If the user says "quick change" or describes a simple modification, skip this flow.
+触发时告知用户："检测到复杂任务，自动激活长任务模式（sustained-development）。"随后直接执行 SETUP 流程。
 
-If unsure whether this flow is appropriate, suggest it, but **the user decides**.
+**注意：** 原来"需要用户输入 `/sustained`"的旧手动触发方式已废弃。复杂度检测全自动，判断不明确时偏保守触发（误触发无害，漏触发导致上下文丢失）。手动输入 `/sustained` 仍可触发（向后兼容）。
 
 ### Good Fit
 
 - Task involves ≥ 4 file changes or ≥ 2 sub-tasks
 - Task needs external tool validation (browser screenshots, test runs, API calls)
 - Fixing a known issue where root cause is uncertain
-- User explicitly asks to "do it carefully"
+- User uses careful-measure language ("仔细做", "一步步")
 
 ### Bad Fit
 
 - Single-file edit (use executing-plans directly)
 - Pure exploration (no "completion" concept)
-- User explicitly asks for a quick change
+- User explicitly says "quick change" or "快速改一下"
 
 ## Core Principle
 
@@ -603,7 +607,7 @@ done
 
 ```
 === SETUP ===
-1. User triggers via auto-detection (complex task description), "/sustained", or "开始长任务"
+1. Complex task auto-detected (passive trigger) — tell user "检测到复杂任务，自动激活长任务模式（sustained-development）。" then proceed directly. User can also manually invoke via "/sustained" or "开始长任务"
 2. Coordinator confirms plan is ready
    - Plan source: EnterPlanMode, writing-plans, brainstorming, or user verbal description
    - If no plan yet → go through design phase first
